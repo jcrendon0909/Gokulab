@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: gokulab-postgres
+    environment:
+      POSTGRES_DB: gokulab_dev
+      POSTGRES_USER: gokulab_user
+      POSTGRES_PASSWORD: gokulab_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gokulab_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: gokulab-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # pgAdmin (Database UI)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: gokulab-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@gokulab.mx
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+
+  # Redis Commander (Redis UI)
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: gokulab-redis-commander
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  default:
+    name: gokulab-network
+
+# Comandos útiles:
+# docker-compose up -d          # Inicia todos los servicios
+# docker-compose down           # Detiene todos los servicios
+# docker-compose logs -f        # Ver logs en tiempo real
+# docker-compose ps             # Ver estado de servicios
+# 
+# URLs:
+# PostgreSQL:      localhost:5432
+# Redis:          localhost:6379
+# pgAdmin:        http://localhost:5050
+# Redis Commander: http://localhost:8081

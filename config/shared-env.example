@@ -1,0 +1,97 @@
+# Configuración Compartida - GŌKU LAB
+# Copia este archivo a .env.local y actualiza con tus valores
+
+# ============================================
+# APLICACIÓN
+# ============================================
+APP_NAME="Gokulab"
+APP_ENV="development" # development | staging | production
+APP_DEBUG="true"
+APP_URL="http://localhost:3000"
+
+# ============================================
+# DATABASE (Backend)
+# ============================================
+DB_HOST="localhost"
+DB_PORT="5432"
+DB_NAME="gokulab_dev"
+DB_USER="gokulab_user"
+DB_PASSWORD="change_me_in_production"
+DB_URL="postgresql://gokulab_user:change_me@localhost:5432/gokulab_dev"
+
+# ============================================
+# REDIS (Cache)
+# ============================================
+REDIS_HOST="localhost"
+REDIS_PORT="6379"
+REDIS_PASSWORD=""
+REDIS_URL="redis://localhost:6379"
+
+# ============================================
+# AUTHENTICATION
+# ============================================
+JWT_SECRET="your-super-secret-jwt-key-change-this"
+JWT_EXPIRY="24h"
+REFRESH_TOKEN_EXPIRY="7d"
+
+# ============================================
+# PAYMENTS (Stripe / PayPal)
+# ============================================
+STRIPE_PUBLIC_KEY="pk_test_..."
+STRIPE_SECRET_KEY="sk_test_..."
+STRIPE_WEBHOOK_SECRET="whsec_..."
+
+PAYPAL_CLIENT_ID="..."
+PAYPAL_CLIENT_SECRET="..."
+PAYPAL_WEBHOOK_ID="..."
+
+# ============================================
+# EMAIL (SendGrid / Mailgun)
+# ============================================
+SENDGRID_API_KEY="..."
+SENDGRID_FROM_EMAIL="noreply@gokulab.mx"
+
+# ============================================
+# EXTERNAL SERVICES
+# ============================================
+
+# Google Analytics
+GOOGLE_ANALYTICS_ID="G-XXXXXXXXXX"
+
+# Meta Pixel
+META_PIXEL_ID="123456789"
+
+# Sentry (Error Tracking)
+SENTRY_DSN="https://..."
+
+# AWS S3 (File Storage)
+AWS_REGION="us-east-1"
+AWS_ACCESS_KEY_ID="..."
+AWS_SECRET_ACCESS_KEY="..."
+AWS_S3_BUCKET="gokulab-uploads"
+
+# ============================================
+# FRONTEND (Website)
+# ============================================
+VITE_API_URL="http://localhost:5000/api"
+VITE_APP_NAME="Gokulab"
+
+# ============================================
+# ADMIN / MAINTENANCE
+# ============================================
+ADMIN_EMAIL="admin@gokulab.mx"
+ADMIN_PHONE="+52 1 266 81 68"
+
+# ============================================
+# FEATURE FLAGS
+# ============================================
+FEATURE_PAYMENTS="true"
+FEATURE_EMAIL_NOTIFICATIONS="true"
+FEATURE_SMS_NOTIFICATIONS="false"
+FEATURE_PUSH_NOTIFICATIONS="false"
+
+# ============================================
+# LOGGING
+# ============================================
+LOG_LEVEL="info" # error | warn | info | debug
+LOG_FORMAT="json" # json | text
